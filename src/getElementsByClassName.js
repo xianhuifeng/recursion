@@ -1,24 +1,32 @@
-// If life was easy, we could just do things the easy way:
-/*var getElementsByClassName = function (className) {
-  return document.getElementsByClassName(className);
-};
-*/
-
-// But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className){
+var getElementsByClassName = function(classname){
   var results = [];
+  var nodes = document.body;
 
-  //get all ancestor nodes in the page
+  var checkClassName = function(nodes){
+  	if(nodes.className){
+  		var classnameArray = nodes.className.split(' ');
+  		if(_.indexOf(classnameArray, classname) !== -1){
+  			return true;
+  		}
+  	}return false;
+  };
 
-  //recur start
-  
-  //in each ancestor node, check to see if has child node
+  var addResults = function(nodes){
+  	if(checkClassName(nodes)){
+  		results.push(nodes);
+  	}
+  };
 
-  	//if has not child, see if it has class name
-
-  		//if has, store that node into result
-  		//return
-
-  	//if has child, call recur(childnode)
+  var recur = function(nodes){
+    if(!nodes.hasChildNodes()){
+    	addResults(nodes);
+  	}else{
+	  	addResults(nodes);
+	  	_.each(nodes.childNodes, function(childnode){	
+	  		recur(childnode);
+	  	});
+    }
+  };
+  recur(nodes);
   return results;
 };
