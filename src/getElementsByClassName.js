@@ -18,10 +18,8 @@ var getElementsByClassName = function(classname){
   };
 
   var recur = function(nodes){
-    if(!nodes.hasChildNodes()){
-    	addResults(nodes);
-  	}else{
-	  	addResults(nodes);
+    addResults(nodes);
+    if(nodes.hasChildNodes()){
 	  	_.each(nodes.childNodes, function(childnode){	
 	  		recur(childnode);
 	  	});
